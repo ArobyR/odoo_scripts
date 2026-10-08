@@ -349,7 +349,12 @@ def main():
 
     if duplicados:
         print("\n" + "=" * 110)
-        respuesta = input("¿Deseas exportar los resultados a CSV? (s/n): ").lower()
+        try:
+            respuesta = input("¿Deseas exportar los resultados a CSV? (s/n): ").lower()
+        except EOFError:
+            # Sin entrada interactiva (ej. odoo-bin shell < script.py)
+            respuesta = 'n'
+            print("\n(sin entrada interactiva, no se exporta)")
         if respuesta == 's':
             exportar_a_csv(duplicados)
 
